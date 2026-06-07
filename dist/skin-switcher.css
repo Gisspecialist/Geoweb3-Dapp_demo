@@ -1,0 +1,196 @@
+/* GeoWeb3 Skin Switcher: runtime theme/accessibility layer. Loaded after the app CSS. */
+:root {
+  --geo-font-scale: 1;
+  --geo-density-scale: 1;
+}
+
+html[data-skin="dark"] {
+  --geo-dark: #0A0F1A;
+  --geo-panel: #111827;
+  --geo-card: #1A2335;
+  --geo-border: #2A3A52;
+  --geo-accent: #00D4AA;
+  --geo-accent2: #3B82F6;
+  --geo-accent3: #F59E0B;
+  --geo-text: #E2E8F0;
+  --geo-muted: #8EA0B8;
+  --geo-success: #10B981;
+  --geo-warn: #F59E0B;
+  --geo-danger: #EF4444;
+}
+
+html[data-skin="light"] {
+  --geo-dark: #F5F7FB;
+  --geo-panel: #FFFFFF;
+  --geo-card: #FFFFFF;
+  --geo-border: #D7DEE9;
+  --geo-accent: #047857;
+  --geo-accent2: #1D4ED8;
+  --geo-accent3: #B45309;
+  --geo-text: #0F172A;
+  --geo-muted: #475569;
+  --geo-success: #047857;
+  --geo-warn: #B45309;
+  --geo-danger: #B91C1C;
+}
+
+html[data-skin="ocean"] {
+  --geo-dark: #061826;
+  --geo-panel: #0B2538;
+  --geo-card: #12324A;
+  --geo-border: #23506D;
+  --geo-accent: #38E8FF;
+  --geo-accent2: #7DD3FC;
+  --geo-accent3: #FBBF24;
+  --geo-text: #E0F7FF;
+  --geo-muted: #A7C8D9;
+  --geo-success: #34D399;
+  --geo-warn: #FBBF24;
+  --geo-danger: #FB7185;
+}
+
+html[data-skin="forest"] {
+  --geo-dark: #07130C;
+  --geo-panel: #102117;
+  --geo-card: #172C20;
+  --geo-border: #31513C;
+  --geo-accent: #86EFAC;
+  --geo-accent2: #22C55E;
+  --geo-accent3: #FCD34D;
+  --geo-text: #ECFDF3;
+  --geo-muted: #B7D1BF;
+  --geo-success: #22C55E;
+  --geo-warn: #FCD34D;
+  --geo-danger: #F87171;
+}
+
+html[data-skin="desert"] {
+  --geo-dark: #20140A;
+  --geo-panel: #332213;
+  --geo-card: #442D18;
+  --geo-border: #76512D;
+  --geo-accent: #FDBA74;
+  --geo-accent2: #F97316;
+  --geo-accent3: #FACC15;
+  --geo-text: #FFF7ED;
+  --geo-muted: #E7C4A6;
+  --geo-success: #84CC16;
+  --geo-warn: #FACC15;
+  --geo-danger: #F87171;
+}
+
+html[data-skin="contrast"] {
+  --geo-dark: #000000;
+  --geo-panel: #050505;
+  --geo-card: #111111;
+  --geo-border: #FFFFFF;
+  --geo-accent: #00FFFF;
+  --geo-accent2: #FFFF00;
+  --geo-accent3: #FFB000;
+  --geo-text: #FFFFFF;
+  --geo-muted: #F3F4F6;
+  --geo-success: #00FF66;
+  --geo-warn: #FFFF00;
+  --geo-danger: #FF6666;
+}
+
+html[data-text-size="comfortable"] { --geo-font-scale: 1.08; }
+html[data-text-size="large"] { --geo-font-scale: 1.18; }
+html[data-text-size="xlarge"] { --geo-font-scale: 1.3; }
+html[data-density="compact"] { --geo-density-scale: .88; }
+html[data-density="spacious"] { --geo-density-scale: 1.12; }
+
+html, body, #root { font-size: calc(14px * var(--geo-font-scale)); }
+
+body.geo-reduce-motion *, body.geo-reduce-motion *::before, body.geo-reduce-motion *::after {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: .01ms !important;
+}
+
+.geo-skin-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147483000;
+  border: 1px solid var(--geo-border);
+  background: var(--geo-accent);
+  color: var(--geo-dark);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+  font-family: var(--sans, system-ui, sans-serif);
+  box-shadow: 0 12px 32px rgba(0,0,0,.32);
+  cursor: pointer;
+}
+
+.geo-skin-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 66px;
+  width: min(360px, calc(100vw - 36px));
+  max-height: min(680px, calc(100vh - 90px));
+  overflow: auto;
+  z-index: 2147483000;
+  background: var(--geo-panel);
+  color: var(--geo-text);
+  border: 1px solid var(--geo-border);
+  border-radius: 16px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.48);
+  padding: 14px;
+  font-family: var(--sans, system-ui, sans-serif);
+}
+
+.geo-skin-panel[hidden] { display: none !important; }
+.geo-skin-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+.geo-skin-title { font-size: 14px; font-weight: 800; letter-spacing:.2px; }
+.geo-skin-subtitle { font-size: 12px; color: var(--geo-muted); margin-top:2px; }
+.geo-skin-close { border: 1px solid var(--geo-border); background: var(--geo-card); color: var(--geo-text); border-radius: 8px; padding: 4px 8px; cursor: pointer; }
+.geo-skin-section { border-top: 1px solid var(--geo-border); padding-top: 10px; margin-top: 10px; }
+.geo-skin-section-label { color: var(--geo-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 800; }
+.geo-skin-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.geo-skin-option {
+  border: 1px solid var(--geo-border);
+  background: var(--geo-card);
+  color: var(--geo-text);
+  border-radius: 10px;
+  padding: 9px;
+  cursor: pointer;
+  text-align: left;
+  min-height: 52px;
+}
+.geo-skin-option:hover, .geo-skin-option:focus-visible { border-color: var(--geo-accent); }
+.geo-skin-option.active { border-color: var(--geo-accent); box-shadow: inset 0 0 0 1px var(--geo-accent); }
+.geo-skin-name { display: block; font-size: 13px; font-weight: 800; }
+.geo-skin-desc { display: block; font-size: 11px; color: var(--geo-muted); margin-top: 2px; }
+.geo-skin-row { display:flex; gap: 8px; flex-wrap: wrap; }
+.geo-skin-chip {
+  border: 1px solid var(--geo-border);
+  background: var(--geo-card);
+  color: var(--geo-text);
+  border-radius: 999px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.geo-skin-chip.active { border-color: var(--geo-accent); color: var(--geo-accent); }
+.geo-skin-checkbox { display:flex; gap:8px; align-items:flex-start; color: var(--geo-text); font-size: 13px; line-height:1.35; }
+.geo-skin-checkbox input { margin-top: 2px; accent-color: var(--geo-accent); }
+.geo-skin-note { font-size: 11px; color: var(--geo-muted); margin-top: 10px; line-height: 1.35; }
+
+@media (max-width: 768px) {
+  .geo-skin-toggle { right: 12px; bottom: 12px; padding: 9px 12px; }
+  .geo-skin-panel { right: 12px; bottom: 58px; width: calc(100vw - 24px); }
+}
+
+/* Accessibility scaling for the existing inline-heavy React UI. */
+html[data-text-size="comfortable"] #root,
+html[data-text-size="large"] #root,
+html[data-text-size="xlarge"] #root {
+  zoom: var(--geo-font-scale);
+}
+html[data-density="compact"] .card { padding: 12px; }
+html[data-density="spacious"] .card { padding: 20px; }
+html[data-density="compact"] .btn { padding-top: 6px; padding-bottom: 6px; }
+html[data-density="spacious"] .btn { padding-top: 10px; padding-bottom: 10px; }

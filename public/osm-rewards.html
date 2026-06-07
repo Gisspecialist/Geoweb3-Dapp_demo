@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoWeb3 — OSM Map Reward Tool</title>
+  <link rel="stylesheet" href="/skin-switcher.css" />
+  <style>
+    :root{--geo-bg:#071214;--geo-panel:#0d1b20;--geo-card:#10242b;--geo-text:#e8fffa;--geo-muted:#9bb8b2;--geo-accent:#00d4aa;--geo-accent2:#3b82f6;--geo-border:rgba(255,255,255,.12);--mono:ui-monospace,Menlo,Consolas,monospace}*{box-sizing:border-box}body{margin:0;background:var(--geo-bg);color:var(--geo-text);font-family:Inter,Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}.brand{font-family:var(--mono);letter-spacing:1px;color:var(--geo-accent)}a{color:var(--geo-accent)}.hero{display:grid;grid-template-columns:1fr 270px;gap:18px;margin-bottom:18px}.panel,.card{background:var(--geo-panel);border:1px solid var(--geo-border);border-radius:16px;padding:18px}.card{background:var(--geo-card)}h1{font-size:34px;margin:6px 0}h2{margin:0 0 12px}.lead,.muted{color:var(--geo-muted);line-height:1.55}.reward{font-family:var(--mono);font-size:36px;font-weight:800;color:var(--geo-accent)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}label span{display:block;color:var(--geo-muted);font-family:var(--mono);font-size:12px;margin-bottom:5px}input,select,textarea{width:100%;background:var(--geo-card);color:var(--geo-text);border:1px solid var(--geo-border);border-radius:10px;padding:10px 12px}textarea{min-height:86px}.actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}button{border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:var(--geo-accent);color:#03251d;border:0}.secondary{background:transparent;color:var(--geo-accent);border:1px solid var(--geo-accent)}pre{background:var(--geo-card);border:1px solid var(--geo-border);border-radius:12px;padding:12px;overflow:auto;max-height:360px;color:var(--geo-text)}.status{margin-top:12px;color:var(--geo-accent2);font-family:var(--mono);font-size:12px}.navbtn{display:inline-block;padding:9px 12px;border:1px solid var(--geo-border);border-radius:10px;text-decoration:none;background:var(--geo-card)}@media(max-width:850px){.hero,.grid2,.grid3,.form{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top"><div class="brand">GEOWEB3 • OSM REWARD TOOL</div><a class="navbtn" href="/">← Back to GeoWeb3 App</a></div>
+    <section class="hero">
+      <div class="panel"><div class="brand">OpenStreetMap + GeoWeb3</div><h1>OSM Map Reward Tool</h1><p class="lead">Reward contributors for useful OpenStreetMap edits, community validation, and geospatial data improvements. This adds OSM reward workflows to the existing ArcGIS/Web3 minting, DAO voting, and GEOW rewards system.</p></div>
+      <div class="panel"><div class="muted">Estimated reward</div><div id="reward" class="reward">110 GEOW</div><p id="rewardNote" class="muted">Submit for validation or DAO review</p></div>
+    </section>
+    <section class="grid3"><div class="card"><h3>Why OSM fits</h3><p class="muted">OSM contributors create public map value that can be verified, scored, and rewarded.</p></div><div class="card"><h3>Abuse reduction</h3><p class="muted">Use OSM IDs, wallet linking, duplicate checks, rate limits, and DAO review.</p></div><div class="card"><h3>Production role</h3><p class="muted">Approved claims can flow to the rewards oracle for GEOW payouts.</p></div></section>
+    <section class="panel"><h2>Submit OSM Contribution</h2><div class="form">
+      <label><span>OSM username</span><input id="osmUsername" value="sample_mapper"></label>
+      <label><span>Wallet address</span><input id="walletAddress" value="0x742d35Cc6634C0532925a3b844Bc454e4438f44e"></label>
+      <label><span>OSM target type</span><select id="targetType"><option value="changeset">OSM changeset</option><option value="node">OSM node</option><option value="way">OSM way</option><option value="relation">OSM relation</option></select></label>
+      <label><span>OSM ID / changeset ID</span><input id="targetId" value="123456789"></label>
+      <label><span>Contribution type</span><select id="contributionType"><option value="new_feature">New mapped feature</option><option value="edit_feature">Corrected or improved feature</option><option value="attribute_update">Added tags / attributes</option><option value="validation">Validated another contributor's data</option><option value="conflict_resolution">Resolved disputed map edit</option></select></label>
+      <label><span>Feature category</span><select id="featureType"><option>POI / facility</option><option>Road / trail</option><option>Building</option><option>Water point</option><option>Boundary</option><option>Land use</option><option>Disaster or climate feature</option><option>Accessibility feature</option></select></label>
+      <label><span>Service area / community</span><input id="serviceArea" value="Belize / pilot community"></label>
+      <label><span>Description</span><textarea id="description">Mapped or improved open geospatial features that can support community verification and rewards.</textarea></label>
+    </div><div class="actions"><button class="secondary" id="validateBtn">Validate OSM ID</button><button class="primary" id="submitBtn">Submit Reward Claim</button></div><div class="status" id="status"></div></section>
+    <section class="grid2"><div class="panel"><h2>Validation Result</h2><pre id="validation">No validation yet.</pre></div><div class="panel"><h2>Latest Claim</h2><pre id="claim">No claim yet.</pre></div></section>
+    <section class="panel"><h2>Production Workflow</h2><ol class="muted"><li>Link Esri account, OSM username, email, and wallet.</li><li>Submit an OSM changeset/element ID.</li><li>Backend validates public OSM object and prevents duplicate claims.</li><li>Unverified or high-value claims go to DAO/community review.</li><li>Approved claims are paid in GEOW tokens through the rewards oracle.</li></ol></section>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id); let validation=null;
+    function form(){return ['osmUsername','walletAddress','targetType','targetId','contributionType','featureType','serviceArea','description'].reduce((a,id)=>(a[id]=$(id).value,a),{})}
+    function score(f){const base={new_feature:80,edit_feature:45,attribute_update:35,validation:25,conflict_resolution:60}[f.contributionType]||20; const bonus=['Boundary','Water point','Disaster or climate feature','Accessibility feature'].includes(f.featureType)?15:5; return base+bonus+(validation&&validation.valid?25:0)}
+    function refresh(){const s=score(form()); $('reward').textContent=s+' GEOW'; $('rewardNote').textContent=validation&&validation.valid?'Live OSM verification bonus included':'Submit for validation or DAO review'}
+    document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',refresh));
+    $('validateBtn').onclick=async()=>{const f=form(); $('status').textContent='Checking OSM public API...'; try{const url=f.targetType==='changeset'?`https://api.openstreetmap.org/api/0.6/changeset/${f.targetId}`:`https://api.openstreetmap.org/api/0.6/${f.targetType}/${f.targetId}`; const r=await fetch(url); const txt=await r.text(); validation={valid:r.ok&&!/not found|gone|<error>/i.test(txt),targetType:f.targetType,targetId:f.targetId,httpStatus:r.status,tagCount:(txt.match(/<tag\s/g)||[]).length,checkedAt:new Date().toISOString()};}catch(e){validation={valid:false,error:e.message,message:'Live OSM validation unavailable; submit for DAO review.'}} $('validation').textContent=JSON.stringify(validation,null,2); $('status').textContent=validation.valid?'OSM contribution located.':'Could not verify live; DAO review recommended.'; refresh();}
+    $('submitBtn').onclick=()=>{const f=form(); const claim={id:'local-osm-'+Date.now(),status:validation&&validation.valid?'Verified - Pending Oracle/DAO Approval':'Pending DAO Review',estimatedReward:score(f),payload:f,validation,createdAt:new Date().toISOString()}; const old=JSON.parse(localStorage.getItem('geoweb3_osm_claims')||'[]'); localStorage.setItem('geoweb3_osm_claims',JSON.stringify([claim,...old].slice(0,50))); $('claim').textContent=JSON.stringify(claim,null,2); $('status').textContent='OSM reward claim saved locally. Configure backend for production oracle/DAO workflow.'; refresh();}
+    refresh();
+  </script>
+  <script src="/skin-switcher.js"></script>
+</body>
+</html>
